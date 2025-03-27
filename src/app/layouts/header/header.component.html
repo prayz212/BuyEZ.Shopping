@@ -1,0 +1,58 @@
+<header
+  class="pt-2 lg:pt-3 lg:px-3 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full"
+>
+  <div class="w-full">
+    <p-menubar [model]="items">
+      <ng-template #start>
+        <!-- Logo -->
+        <div
+          class="mr-4 rounded-md text-xl font-semibold focus:outline-none focus:opacity-80 flex space-x-2 h-6 w-max items-center"
+        >
+          <img
+            src="../../../assets/logo/shopping-icon.png"
+            width="20"
+            height="20"
+          />
+          <span class="text-white">BuyEZ</span>
+        </div>
+        <!-- End Logo -->
+      </ng-template>
+      <ng-template #end>
+        <div class="flex items-center gap-4">
+          <input type="text" pInputText placeholder="Search" class="w-48" />
+          <div class="card flex justify-center" *ngIf="authenticated$ | async">
+            <p-menu #menu [model]="accountItems" [popup]="true">
+              <ng-template #start>
+                <div
+                  class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 rounded-none transition-colors duration-200"
+                >
+                  <span class="inline-flex flex-col">
+                    <span class="font-bold">Amy Elsner</span>
+                    <span class="text-sm">amy.elsner&#64;gmail.com</span>
+                  </span>
+                </div>
+              </ng-template>
+            </p-menu>
+            <p-button
+              (click)="menu.toggle($event)"
+              [text]="true"
+              styleClass="p-0"
+            >
+              <p-avatar
+                image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                shape="circle"
+              />
+            </p-button>
+          </div>
+
+          <a [routerLink]="['/shopping-carts']">
+            <i class="pi pi-shopping-cart" style="font-size: 24px"></i>
+          </a>
+          <a *ngIf="!(authenticated$ | async)" [routerLink]="['/sign-in']">
+            <i class="pi pi-sign-in" style="font-size: 24px"></i>
+          </a>
+        </div>
+      </ng-template>
+    </p-menubar>
+  </div>
+</header>

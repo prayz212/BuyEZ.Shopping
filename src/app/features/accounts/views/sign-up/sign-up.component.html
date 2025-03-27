@@ -1,0 +1,211 @@
+<div
+  class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden"
+>
+  <div class="flex flex-col items-center justify-center">
+    <div
+      style="
+        border-radius: 56px;
+        padding: 0.3rem;
+        background: linear-gradient(
+          180deg,
+          var(--primary-color) 10%,
+          rgba(33, 150, 243, 0) 30%
+        );
+      "
+    >
+      <div
+        class="w-full bg-surface-0 dark:bg-surface-900 py-10 px-8"
+        style="border-radius: 53px"
+      >
+        <div class="text-center mb-8">
+          <div class="flex justify-center items-center space-x-4">
+            <div class="flex justify-center mb-2">
+              <img src="assets/logo/shopping-icon.png" width="40" height="40" />
+            </div>
+            <div
+              class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-2"
+            >
+              Create a new account
+            </div>
+          </div>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+          <div class="flex space-x-6 mb-8">
+            <div>
+              <label
+                for="firstName"
+                class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+                >First Name</label
+              >
+              <input
+                pInputText
+                id="firstName"
+                type="text"
+                placeholder="First Name"
+                class="w-full md:w-[20rem]"
+                formControlName="firstName"
+              />
+              <div
+                *ngIf="
+                  signupForm.get('firstName')?.invalid &&
+                  signupForm.get('firstName')?.touched
+                "
+              >
+                <small class="text-red-600">First Name is required</small>
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="lastName"
+                class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+                >Last Name</label
+              >
+              <input
+                pInputText
+                id="lastName"
+                type="text"
+                placeholder="Last Name"
+                class="w-full md:w-[20rem]"
+                formControlName="lastName"
+              />
+              <div
+                *ngIf="
+                  signupForm.get('lastName')?.invalid &&
+                  signupForm.get('lastName')?.touched
+                "
+              >
+                <small class="text-red-600">Last Name is required</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex space-x-6 mb-8">
+            <div>
+              <label
+                for="email"
+                class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+                >Email</label
+              >
+              <input
+                pInputText
+                id="email"
+                type="text"
+                placeholder="Email"
+                class="w-full md:w-[20rem]"
+                formControlName="email"
+              />
+              <div
+                *ngIf="
+                  signupForm.get('email')?.errors?.['required'] &&
+                  signupForm.get('email')?.touched
+                "
+              >
+                <small class="text-red-600">Email is required</small>
+              </div>
+              <div
+                *ngIf="
+                  signupForm.get('email')?.errors?.['email'] &&
+                  signupForm.get('email')?.touched
+                "
+              >
+                <small class="text-red-600">Email is not supported</small>
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="phoneNumber"
+                class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+                >Phone Number</label
+              >
+              <input
+                pInputText
+                id="phoneNumber"
+                type="text"
+                placeholder="Phone Number"
+                class="w-full md:w-[20rem]"
+                formControlName="phoneNumber"
+              />
+              <div
+                *ngIf="
+                  signupForm.get('phoneNumber')?.invalid &&
+                  signupForm.get('phoneNumber')?.touched
+                "
+              >
+                <small class="text-red-600">Phone Number is required</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex space-x-6 mb-8">
+            <div>
+              <label
+                for="username"
+                class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+                >Username</label
+              >
+              <input
+                pInputText
+                id="username"
+                type="text"
+                placeholder="Username"
+                class="w-full md:w-[20rem]"
+                formControlName="username"
+              />
+              <div
+                *ngIf="
+                  signupForm.get('username')?.invalid &&
+                  signupForm.get('username')?.touched
+                "
+              >
+                <small class="text-red-600">Username is required</small>
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="password"
+                class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+                >Password</label
+              >
+              <input
+                pInputText
+                id="password"
+                type="password"
+                placeholder="Password"
+                class="w-full md:w-[20rem]"
+                formControlName="password"
+              />
+              <div
+                *ngIf="
+                  signupForm.get('password')?.errors?.['required'] &&
+                  signupForm.get('password')?.touched
+                "
+              >
+                <small class="text-red-600">Password is required</small>
+              </div>
+              <div
+                *ngIf="
+                  signupForm.get('password')?.errors?.['minlength'] &&
+                  signupForm.get('password')?.touched
+                "
+              >
+                <small class="text-red-600"
+                  >Password must have at least 8 characters</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <p-button
+            type="submit"
+            label="Sign up"
+            styleClass="w-full"
+          ></p-button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

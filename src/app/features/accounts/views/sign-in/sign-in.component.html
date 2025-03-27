@@ -1,0 +1,117 @@
+<div
+  class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden"
+>
+  <div class="flex flex-col items-center justify-center">
+    <div
+      style="
+        border-radius: 56px;
+        padding: 0.3rem;
+        background: linear-gradient(
+          180deg,
+          var(--primary-color) 10%,
+          rgba(33, 150, 243, 0) 30%
+        );
+      "
+    >
+      <div
+        class="w-full bg-surface-0 dark:bg-surface-900 py-10 px-8"
+        style="border-radius: 53px"
+      >
+        <div class="text-center mb-8">
+          <div class="flex justify-center items-center space-x-4">
+            <div class="flex justify-center mb-2">
+              <img src="assets/logo/shopping-icon.png" width="40" height="40" />
+            </div>
+            <div
+              class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-2"
+            >
+              Welcome to BuyEZ!
+            </div>
+          </div>
+          <span class="text-muted-color font-medium">Sign in to continue</span>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" [formGroup]="signinForm">
+          <label
+            for="username"
+            class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+            >Username</label
+          >
+          <input
+            pInputText
+            id="username"
+            type="text"
+            placeholder="Username"
+            class="w-full md:w-[30rem] mb-8"
+            formControlName="username"
+          />
+          <div
+            *ngIf="
+              signinForm.get('username')?.invalid &&
+              signinForm.get('username')?.touched
+            "
+          >
+            <small class="text-red-600">Username is required</small>
+          </div>
+
+          <label
+            for="password"
+            class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
+            >Password</label
+          >
+          <p-password
+            id="password"
+            formControlName="password"
+            placeholder="Password"
+            [toggleMask]="true"
+            styleClass="mb-4"
+            [fluid]="true"
+            [feedback]="false"
+          ></p-password>
+          <div
+            *ngIf="
+            signinForm.get('password')?.errors?.['required'] &&
+            signinForm.get('password')?.touched
+          "
+          >
+            <small class="text-red-600">Password is required</small>
+          </div>
+          <div
+            *ngIf="
+            signinForm.get('password')?.errors?.['minlength'] &&
+            signinForm.get('password')?.touched
+          "
+          >
+            <small class="text-red-600"
+              >Password must have at least 8 characters</small
+            >
+          </div>
+
+          <div class="flex items-center justify-between mt-2 mb-8 gap-8">
+            <div class="flex items-center">
+              <p-checkbox inputId="rememberme" binary class="mr-2"></p-checkbox>
+              <label for="rememberme">Remember me</label>
+            </div>
+            <a
+              routerLink="/forgot-password"
+              class="font-medium ml-2 text-right text-gray-500"
+            >
+              Forgot password?</a
+            >
+          </div>
+          <p-button
+            label="Sign In"
+            styleClass="w-full"
+            type="submit"
+          ></p-button>
+        </form>
+        <p-divider />
+        <a
+          routerLink="/sign-up"
+          class="font-medium ml-2 text-right text-gray-500 flex justify-center hover:underline"
+          >Do not have account yet?</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
