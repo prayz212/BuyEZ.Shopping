@@ -34,7 +34,7 @@ export class HeaderComponent {
 
   authenticated$!: Observable<boolean>;
 
-  constructor(private store: Store) {
+  constructor(private readonly store: Store) {
     this.authenticated$ = this.store.select(selectIsAuthenticated);
 
     this.onSignOut = this.onSignOut.bind(this); // Why we need to bind here?
@@ -83,6 +83,11 @@ export class HeaderComponent {
       {
         label: 'Settings',
         icon: 'pi pi-cog',
+      },
+      {
+        label: 'Orders history',
+        icon: 'pi pi-history',
+        routerLink: '/order-history',
       },
       {
         label: 'Sign out',

@@ -1,0 +1,110 @@
+<div
+  class="w-full grid grid-cols-12 gap-x-5 px-14 sm:px-5 my-12 self-center transition-all duration-200 ease-in-out"
+>
+  <div class="flex flex-col items-start w-full col-span-8 px-6 mt-5">
+    <h3
+      class="w-full border-b-1 border-surface-400 white-space-nowrap text-sm font-bold pb-2 text-surface-400 my-7"
+    >
+      Order Details
+    </h3>
+    <form [formGroup]="checkoutForm" class="w-full grid grid-cols-12 gap-4">
+      <div class="w-full col-span-6 flex flex-col justify-between items-start">
+        <p-floatlabel variant="on" class="w-full">
+          <input
+            pInputText
+            id="name"
+            autocomplete="off"
+            class="w-full"
+            formControlName="name"
+          />
+          <label for="name">Name</label>
+        </p-floatlabel>
+        <div
+          *ngIf="
+            checkoutForm.get('name')?.invalid &&
+            checkoutForm.get('name')?.touched
+          "
+        >
+          <small class="text-red-600">Customer name is required</small>
+        </div>
+      </div>
+      <div class="w-full col-span-6 flex flex-col justify-between items-start">
+        <p-floatlabel variant="on" class="w-full">
+          <input
+            pInputText
+            id="email"
+            autocomplete="off"
+            class="w-full"
+            type="email"
+            formControlName="email"
+          />
+          <label for="email">Email</label>
+        </p-floatlabel>
+        <div
+          *ngIf="
+            checkoutForm.get('email')?.errors?.['required'] &&
+            checkoutForm.get('email')?.touched
+          "
+        >
+          <small class="text-red-600">Customer Email is required</small>
+        </div>
+        <div
+          *ngIf="
+            checkoutForm.get('email')?.errors?.['email'] &&
+            checkoutForm.get('email')?.touched
+          "
+        >
+          <small class="text-red-600">Customer Email is not supported</small>
+        </div>
+      </div>
+      <div class="w-full col-span-8 flex flex-col justify-between items-start">
+        <p-floatlabel variant="on" class="w-full">
+          <input
+            pInputText
+            id="address"
+            autocomplete="off"
+            class="w-full"
+            formControlName="address"
+          />
+          <label for="address">Address</label>
+        </p-floatlabel>
+        <div
+          *ngIf="
+            checkoutForm.get('address')?.invalid &&
+            checkoutForm.get('address')?.touched
+          "
+        >
+          <small class="text-red-600">Customer address is required</small>
+        </div>
+      </div>
+      <div class="w-full col-span-4 flex flex-col justify-between items-start">
+        <p-floatlabel variant="on" class="w-full">
+          <input
+            pInputText
+            id="phoneNumber"
+            autocomplete="off"
+            class="w-full"
+            formControlName="phoneNumber"
+          />
+          <label for="phoneNumber">Phone Number</label>
+        </p-floatlabel>
+        <div
+          *ngIf="
+            checkoutForm.get('phoneNumber')?.invalid &&
+            checkoutForm.get('phoneNumber')?.touched
+          "
+        >
+          <small class="text-red-600">Customer phone number is required</small>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div
+    class="col-span-4 mb-24 mt-12 px-6 transition-all duration-200 ease-in-out"
+  >
+    <buyez-order-summary
+      [cartItems]="cartItems$ | async"
+      (newOrderEvent)="onSubmit()"
+    ></buyez-order-summary>
+  </div>
+</div>

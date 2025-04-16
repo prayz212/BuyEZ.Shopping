@@ -1,0 +1,25 @@
+<div class="card">
+  <p-galleria
+    [value]="imagesJson"
+    [responsiveOptions]="responsiveOptions"
+    [containerStyle]="{
+      'max-width': '408px',
+      'max-height': '100%',
+      backgound: 'red',
+      border: '0',
+    }"
+    class="bg-amber-300"
+    [numVisible]="5"
+    verticalThumbnailViewPortHeight="100%"
+    [thumbnailsPosition]="'left'"
+    [showItemNavigators]="true"
+    [showThumbnailNavigators]="false"
+  >
+    <ng-template #item let-item>
+      <img [src]="item.itemImageSrc" style="max-width: 284px" />
+    </ng-template>
+    <ng-template #thumbnail let-item>
+      <img [src]="item.thumbnailImageSrc" style="max-height: 68px" />
+    </ng-template>
+  </p-galleria>
+</div>
