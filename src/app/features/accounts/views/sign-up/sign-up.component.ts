@@ -36,7 +36,7 @@ import { AccountActions } from '../../store/account.actions';
 export class SignUpComponent {
   signupForm: FormGroup;
 
-  constructor(private readonly store: Store) {
+  constructor(private store: Store) {
     this.signupForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),

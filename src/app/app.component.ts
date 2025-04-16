@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   title: string = 'BuyEZ Shopping';
   url: string = '';
 
-  constructor(private readonly router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.router.events
