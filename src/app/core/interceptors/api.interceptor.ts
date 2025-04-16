@@ -22,13 +22,15 @@ export const apiInterceptor: HttpInterceptorFn = (
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
   /*  Adding apis prefix  */
-  const apiUrl = `http://localhost:4200/${environment.apiVersion}/api/${req.url}`;
+  const apiReq = req.clone({
+    url: `${environment.apiBaseUrl}/${environment.apiVersion}/api/${req.url}`,
+  });
 
   /*  Skip authentication for public endpoints  */
-  console.log('Need token: ' + !isPublicEndpoint(req.url));
+  console.log('Need token: ' + isPublicEndpoint(req.url));
 
   if (isPublicEndpoint(req.url)) {
-    return next(req.clone({ url: apiUrl }));
+    return next(apiReq);
   }
 
   const store = inject(Store);
@@ -40,19 +42,14 @@ export const apiInterceptor: HttpInterceptorFn = (
     .pipe(take(1)) // Take the first emitted value and complete
     .subscribe((token) => (accessToken = token));
 
-  const apiReq = req.clone({
-    url: apiUrl,
-    setHeaders: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  if (accessToken) {
+    apiReq.headers.set('Authorization', `Bearer ${accessToken}`);
+  }
 
   return next(apiReq).pipe(
     catchError((error) => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
-        return handleUnauthorizedError(apiReq, next);
+        return handleUnauthorizedError(req, next);
       }
 
       return throwError(() => error);
@@ -62,7 +59,7 @@ export const apiInterceptor: HttpInterceptorFn = (
 
 const isPublicEndpoint = (url: string) => {
   /*  Add your public endpoints here  */
-  const publicEndpoints = ['catalog', 'identity'];
+  const publicEndpoints = ['/catalog', '/identity'];
   return publicEndpoints.some((endpoint) => url.startsWith(endpoint));
 };
 
