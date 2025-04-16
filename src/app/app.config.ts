@@ -23,6 +23,8 @@ import {
 } from './core/services';
 import * as AccountEffects from './features/accounts/store/account.effects';
 import { accountReducer } from './features/accounts/store/account.reducer';
+import * as CartEffects from './features/carts/store/cart.effects';
+import { cartReducer } from './features/carts/store/cart.reducer';
 import * as ProductEffects from './features/products/store/product.effects';
 import { productReducer } from './features/products/store/product.reducer';
 import * as GlobalSettingsEffects from './store/global.effects';
@@ -34,8 +36,14 @@ export const appConfig: ApplicationConfig = {
       globalSettings: globalSettingsReducer,
       account: accountReducer,
       product: productReducer,
+      cart: cartReducer,
     }),
-    provideEffects([GlobalSettingsEffects, AccountEffects, ProductEffects]),
+    provideEffects([
+      GlobalSettingsEffects,
+      AccountEffects,
+      ProductEffects,
+      CartEffects,
+    ]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
