@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,9 +16,9 @@ import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import { take } from 'rxjs';
 import { SignInRequest } from '../../models/api.model';
 import { AccountActions } from '../../store/account.actions';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +36,7 @@ import { AccountActions } from '../../store/account.actions';
   ],
   templateUrl: './sign-in.component.html',
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   signinForm: FormGroup;
 
   constructor(
@@ -53,6 +53,12 @@ export class SignInComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.actions$
+      .pipe(ofType(AccountActions.loginSuccess), take(1))
+      .subscribe(() => this.router.navigate(['home']));
+  }
+
   onSubmit(): void {
     if (this.signinForm.invalid) {
       this.signinForm.markAllAsTouched();
@@ -61,9 +67,5 @@ export class SignInComponent {
 
     const credentials: SignInRequest = this.signinForm.value;
     this.store.dispatch(AccountActions.login({ credentials }));
-
-    this.actions$
-      .pipe(ofType(AccountActions.loginSuccess), take(1))
-      .subscribe(() => this.router.navigate(['home']));
   }
 }

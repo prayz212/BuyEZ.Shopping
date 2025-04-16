@@ -14,3 +14,16 @@
   /* @tailwind components; - deprecated */
   /* @tailwind utilities; - deprecated */
 }
+
+.p-galleria-thumbnails-content {
+  background: transparent;
+}
+
+.p-galleria-thumbnail-nav-button:hover {
+  background: #18181b;
+}
+
+.p-galleria-thumbnails-content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
