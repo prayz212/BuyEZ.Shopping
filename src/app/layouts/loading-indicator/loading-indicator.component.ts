@@ -11,7 +11,7 @@ import { LoadingService } from '../../core/services';
 export class LoadingIndicatorComponent {
   loading$: Observable<boolean>;
 
-  constructor(private loadingService: LoadingService) {
+  constructor(private readonly loadingService: LoadingService) {
     this.loading$ = this.loadingService.loading$;
   }
 }

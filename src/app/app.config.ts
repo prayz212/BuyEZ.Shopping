@@ -16,9 +16,15 @@ import {
   errorInterceptor,
   loadingInterceptor,
 } from './core/interceptors';
-import { AccountService, LoadingService } from './core/services';
+import {
+  AccountService,
+  CatalogService,
+  LoadingService,
+} from './core/services';
 import * as AccountEffects from './features/accounts/store/account.effects';
 import { accountReducer } from './features/accounts/store/account.reducer';
+import * as ProductEffects from './features/products/store/product.effects';
+import { productReducer } from './features/products/store/product.reducer';
 import * as GlobalSettingsEffects from './store/global.effects';
 import { globalSettingsReducer } from './store/global.reducer';
 
@@ -27,8 +33,9 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       globalSettings: globalSettingsReducer,
       account: accountReducer,
+      product: productReducer,
     }),
-    provideEffects([GlobalSettingsEffects, AccountEffects]),
+    provideEffects([GlobalSettingsEffects, AccountEffects, ProductEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
@@ -53,6 +60,7 @@ export const appConfig: ApplicationConfig = {
     ),
 
     AccountService,
+    CatalogService,
     LoadingService,
     MessageService,
   ],

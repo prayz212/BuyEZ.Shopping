@@ -34,7 +34,7 @@ export class HeaderComponent {
 
   authenticated$!: Observable<boolean>;
 
-  constructor(private store: Store) {
+  constructor(private readonly store: Store) {
     this.authenticated$ = this.store.select(selectIsAuthenticated);
 
     this.onSignOut = this.onSignOut.bind(this); // Why we need to bind here?
