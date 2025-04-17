@@ -8,6 +8,7 @@ import { OrderDetailComponent } from './features/orders/views/order-detail/order
 import { OrderListComponent } from './features/orders/views/order-list/order-list.component';
 import { ProductDetailComponent } from './features/products/views/product-detail/product-detail.component';
 import { ProductListComponent } from './features/products/views/product-list/product-list.component';
+import { identityGuard } from './shared/guards/identity.guard';
 
 export const routes: Routes = [
   {
@@ -37,13 +38,16 @@ export const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutComponent,
+    canActivate: [identityGuard],
   },
   {
     path: 'order-history',
     component: OrderListComponent,
+    canActivate: [identityGuard],
   },
   {
     path: 'order-history/:id',
     component: OrderDetailComponent,
+    canActivate: [identityGuard],
   },
 ];
