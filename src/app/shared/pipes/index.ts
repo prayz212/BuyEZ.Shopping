@@ -1,3 +1,4 @@
+import { OrderTextPipe } from './order-text.pipe';
 import { ProductTextPipe } from './product-text.pipe';
 
-export { ProductTextPipe };
+export { OrderTextPipe, ProductTextPipe };

@@ -85,6 +85,11 @@ export class HeaderComponent {
         icon: 'pi pi-cog',
       },
       {
+        label: 'Orders history',
+        icon: 'pi pi-history',
+        routerLink: '/order-history',
+      },
+      {
         label: 'Sign out',
         icon: 'pi pi-sign-out',
         command: this.onSignOut,

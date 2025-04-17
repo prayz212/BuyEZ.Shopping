@@ -20,11 +20,14 @@ import {
   AccountService,
   CatalogService,
   LoadingService,
+  OrderService,
 } from './core/services';
 import * as AccountEffects from './features/accounts/store/account.effects';
 import { accountReducer } from './features/accounts/store/account.reducer';
 import * as CartEffects from './features/carts/store/cart.effects';
 import { cartReducer } from './features/carts/store/cart.reducer';
+import * as OrderEffects from './features/orders/store/order.effects';
+import { orderReducer } from './features/orders/store/order.reducer';
 import * as ProductEffects from './features/products/store/product.effects';
 import { productReducer } from './features/products/store/product.reducer';
 import * as GlobalSettingsEffects from './store/global.effects';
@@ -37,12 +40,14 @@ export const appConfig: ApplicationConfig = {
       account: accountReducer,
       product: productReducer,
       cart: cartReducer,
+      order: orderReducer,
     }),
     provideEffects([
       GlobalSettingsEffects,
       AccountEffects,
       ProductEffects,
       CartEffects,
+      OrderEffects,
     ]),
     provideStoreDevtools({
       maxAge: 25,
@@ -69,6 +74,7 @@ export const appConfig: ApplicationConfig = {
 
     AccountService,
     CatalogService,
+    OrderService,
     LoadingService,
     MessageService,
   ],

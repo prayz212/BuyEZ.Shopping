@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
+import { CustomerInfo } from '../../orders/models/order.model';
 import { CartItem } from '../models';
 
 /*  Add to cart actions  */
@@ -21,10 +23,28 @@ const removeFromCartSuccess = createAction(
   props<{ name: string }>()
 );
 
+/*  Place order actions  */
+const placeOrder = createAction(
+  '[Cart] Place Order',
+  props<{ customerInfo: CustomerInfo; items: CartItem[] }>()
+);
+const placeOrderSuccess = createAction(
+  '[Cart] Place Order Success',
+  props<{ orderId: string }>()
+);
+const placeOrderFailure = createAction(
+  '[Cart] Place Order Failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
 export const CartActions = {
   addToCart,
   addToCartSuccess,
 
   removeFromCart,
   removeFromCartSuccess,
+
+  placeOrder,
+  placeOrderSuccess,
+  placeOrderFailure,
 };

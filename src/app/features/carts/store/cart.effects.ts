@@ -75,3 +75,35 @@ export const removeFromCartSuccess = createEffect(
     functional: true,
   }
 );
+
+export const placeOrder = createEffect(
+  (actions$ = inject(Actions), orderService = inject(OrderService)) => {
+    return actions$.pipe(
+      ofType(CartActions.placeOrder),
+      exhaustMap(({ customerInfo, items }) =>
+        orderService.addOrder({ customerInfo, items }).pipe(
+          map(({ id }) => CartActions.placeOrderSuccess({ orderId: id })),
+          catchError((error: HttpErrorResponse) =>
+            of(CartActions.placeOrderFailure({ error }))
+          )
+        )
+      )
+    );
+  },
+  {
+    functional: true,
+  }
+);
+
+export const placeOrderSuccess = createEffect(
+  (actions$ = inject(Actions), router = inject(Router)) => {
+    return actions$.pipe(
+      ofType(CartActions.placeOrderSuccess),
+      tap(({ orderId }) => router.navigate(['order-history', orderId]))
+    );
+  },
+  {
+    functional: true,
+    dispatch: false,
+  }
+);
