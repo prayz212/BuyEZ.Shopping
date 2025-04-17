@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { Observable, take } from 'rxjs';
+import { selectIsAuthenticated } from '../../../accounts/store/account.selectors';
 import { CartItem } from '../../models';
 import { CartActions } from '../../store/cart.actions';
 import { selectCartItems } from '../../store/cart.selector';
@@ -16,9 +17,11 @@ import { selectCartItems } from '../../store/cart.selector';
 })
 export class CartListComponent {
   cartItems$!: Observable<CartItem[]>;
+  isAuthenticated$!: Observable<boolean>;
 
   constructor(private readonly store: Store) {
     this.cartItems$ = this.store.select(selectCartItems);
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
   removeCartItem(id: string) {

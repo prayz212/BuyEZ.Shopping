@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Observable, take } from 'rxjs';
 import { OrderSummaryComponent } from '../../components/order-summary/order-summary.component';
 import { CartItem } from '../../models';
+import { CartActions } from '../../store/cart.actions';
 import { selectCartItems } from '../../store/cart.selector';
 
 @Component({
@@ -49,7 +50,12 @@ export class CheckoutComponent {
     }
 
     this.cartItems$.pipe(take(1)).subscribe((items) => {
-      console.log('items', items);
+      this.store.dispatch(
+        CartActions.placeOrder({
+          customerInfo: { ...this.checkoutForm.value },
+          items: [...items],
+        })
+      );
     });
   }
 }

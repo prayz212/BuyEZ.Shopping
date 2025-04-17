@@ -41,4 +41,10 @@ export const cartReducer = createReducer(
     ...state,
     items: [...state.items.filter((item) => item.id !== id)],
   })),
+
+  /*  Place order reducers  */
+  on(CartActions.placeOrderSuccess, (state) => ({
+    ...state,
+    items: [],
+  }))
 );

@@ -63,9 +63,16 @@
         class="flex justify-end my-4"
         *ngIf="(cartItems$ | async)?.length !== 0"
       >
-        <a class="px-10 p-button" [routerLink]="['/checkout']"
-          >Go to Checkout</a
-        >
+        <ng-container *ngIf="isAuthenticated$ | async; else loginButton">
+          <a class="px-10 p-button" [routerLink]="['/checkout']"
+            >Go to Checkout</a
+          >
+        </ng-container>
+        <ng-template #loginButton>
+          <a class="px-10 p-button" [routerLink]="['/sign-in']"
+            >Sign In to Checkout</a
+          >
+        </ng-template>
       </div>
     </div>
   </div>

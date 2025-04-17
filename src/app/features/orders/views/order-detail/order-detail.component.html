@@ -1,0 +1,129 @@
+<div class="mt-24 transition-all duration-300 ease-in-out">
+  <div class="px-14 mb-24">
+    <div class="px-20">
+      <div class="p-8 mb-8 rounded-md bg-surface-900 justify-start">
+        <div class="card flex justify-center">
+          <p-fieldset class="w-full" legend="Order Details">
+            <div class="p-4 text-sm">
+              <div class="grid grid-cols-12 space-y-4">
+                <div class="col-span-6 flex space-x-4">
+                  <p class="font-semibold">OrderId:</p>
+                  <p class="text-surface-400">
+                    {{ (orderDetail$ | async)?.id }}
+                  </p>
+                </div>
+                <div class="col-span-6 flex space-x-4">
+                  <p class="font-semibold">Status:</p>
+                  <p class="text-surface-400">
+                    {{
+                      (orderDetail$ | async)?.status ?? 0 | ordertext : "status"
+                    }}
+                  </p>
+                </div>
+                <div class="col-span-6 flex space-x-4">
+                  <p class="font-semibold">Name:</p>
+                  <p class="text-surface-400">
+                    {{ (orderDetail$ | async)?.customerInfo?.name }}
+                  </p>
+                </div>
+                <div class="col-span-6 flex space-x-4">
+                  <p class="font-semibold">Email:</p>
+                  <p class="text-surface-400">
+                    {{ (orderDetail$ | async)?.customerInfo?.email }}
+                  </p>
+                </div>
+                <div class="col-span-6 flex space-x-4">
+                  <p class="font-semibold">Address:</p>
+                  <p class="text-surface-400">
+                    {{ (orderDetail$ | async)?.customerInfo?.address }}
+                  </p>
+                </div>
+                <div class="col-span-6 flex space-x-4">
+                  <p class="font-semibold">Phone Number:</p>
+                  <p class="text-surface-400">
+                    {{ (orderDetail$ | async)?.customerInfo?.phoneNumber }}
+                  </p>
+                </div>
+                <div class="col-span-6 flex space-x-4">
+                  <p class="font-semibold">Created:</p>
+                  <p class="text-surface-400">
+                    {{ (orderDetail$ | async)?.createdAt | date : "medium" }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </p-fieldset>
+        </div>
+
+        <div class="mt-2 grid grid-cols-12 space-x-4">
+          <div class="col-span-7 card flex justify-center">
+            <p-fieldset class="w-full" legend="Order Items">
+              <div class="p-4">
+                <p-table
+                  [value]="(orderDetail$ | async)?.items ?? []"
+                  rowHover="true"
+                  class="text-sm"
+                >
+                  <ng-template #header>
+                    <tr>
+                      <th style="width: 50%">Name</th>
+                      <th style="width: 15%">Price</th>
+                      <th style="width: 15%">Quantity</th>
+                      <th style="width: 20%">Subtotal</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template #body let-item>
+                    <tr
+                      [className]="'cursor-pointer text-surface-400'"
+                      [routerLink]="['/products/', item.id]"
+                    >
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.price | currency : "USD" }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>{{ item.amount | currency : "USD" }}</td>
+                    </tr>
+                    <tr class="hover:bg-transparent">
+                      <td colspan="3" class="text-start text-md font-bold">
+                        Total Amount:
+                      </td>
+                      <td class="font-bold text-md">
+                        {{
+                          (orderDetail$ | async)?.totalAmount | currency : "USD"
+                        }}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </p-fieldset>
+          </div>
+
+          <div class="col-span-5 card flex justify-center">
+            <p-fieldset class="w-full" legend="Order Histories">
+              <p-timeline
+                [value]="(orderDetail$ | async)?.histories"
+                class="p-4"
+              >
+                <ng-template #opposite let-history>
+                  <small class="text-surface-500 dark:text-surface-400">{{
+                    history.createdAt | date : "short"
+                  }}</small>
+                </ng-template>
+                <ng-template #content let-history>
+                  <div>
+                    <p class="text-sm font-medium">
+                      {{ history.status | ordertext : "status" }}
+                    </p>
+                    <span class="text-xs text-surface-400">{{
+                      history.reason
+                    }}</span>
+                  </div>
+                </ng-template>
+              </p-timeline>
+            </p-fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
