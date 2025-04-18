@@ -13,7 +13,7 @@ import { Token } from '../../features/accounts/models/token.model';
 
 @Injectable()
 export class AccountService {
-  private readonly prefix = 'identity';
+  private readonly prefix = 'identities';
   private readonly clientId = environment.clientId;
 
   constructor(private readonly http: HttpClient) {}
