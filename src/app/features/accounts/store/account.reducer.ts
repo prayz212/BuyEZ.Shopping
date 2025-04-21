@@ -67,6 +67,7 @@ export const accountReducer = createReducer(
     ...state,
     token: null,
     isAuthenticated: false,
+    userinfo: null,
     loading: false,
     error: null,
   })),
