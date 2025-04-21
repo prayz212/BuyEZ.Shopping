@@ -9,10 +9,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Menu } from 'primeng/menu';
 import { Menubar } from 'primeng/menubar';
 import { Observable, take } from 'rxjs';
+import { UserInfo } from '../../features/accounts/models/token.model';
 import { AccountActions } from '../../features/accounts/store/account.actions';
 import {
   selectIsAuthenticated,
   selectRefreshToken,
+  selectUserInfo,
 } from '../../features/accounts/store/account.selectors';
 
 @Component({
@@ -32,10 +34,12 @@ export class HeaderComponent {
   items: MenuItem[] | undefined;
   accountItems: MenuItem[] | undefined;
 
-  authenticated$!: Observable<boolean>;
+  authenticated$: Observable<boolean>;
+  userInfo$: Observable<UserInfo | null>;
 
   constructor(private readonly store: Store) {
     this.authenticated$ = this.store.select(selectIsAuthenticated);
+    this.userInfo$ = this.store.select(selectUserInfo);
 
     this.onSignOut = this.onSignOut.bind(this); // Why we need to bind here?
   }

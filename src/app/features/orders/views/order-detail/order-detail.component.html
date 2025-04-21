@@ -29,7 +29,7 @@
                 <div class="col-span-6 flex space-x-4">
                   <p class="font-semibold">Email:</p>
                   <p class="text-surface-400">
-                    {{ (orderDetail$ | async)?.customerInfo?.email }}
+                    {{ (userInfo$ | async)?.emailAddress }}
                   </p>
                 </div>
                 <div class="col-span-6 flex space-x-4">

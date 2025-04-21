@@ -27,8 +27,12 @@
                   class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 rounded-none transition-colors duration-200"
                 >
                   <span class="inline-flex flex-col">
-                    <span class="font-bold">Amy Elsner</span>
-                    <span class="text-sm">amy.elsner&#64;gmail.com</span>
+                    <span class="text-md font-bold">{{
+                      (userInfo$ | async)?.name
+                    }}</span>
+                    <span class="text-sm">{{
+                      (userInfo$ | async)?.emailAddress
+                    }}</span>
                   </span>
                 </div>
               </ng-template>

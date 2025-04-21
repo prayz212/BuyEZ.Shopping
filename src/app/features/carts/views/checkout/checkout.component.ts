@@ -35,7 +35,6 @@ export class CheckoutComponent {
   constructor(private readonly store: Store) {
     this.checkoutForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
       address: new FormControl('', [Validators.required]),
       phoneNumber: new FormControl('', [Validators.required]),
     });

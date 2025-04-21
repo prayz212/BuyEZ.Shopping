@@ -52,5 +52,10 @@ export const apiInterceptor: HttpInterceptorFn = (
 const isPublicEndpoint = (url: string) => {
   /*  Add your public endpoints here  */
   const publicEndpoints = ['catalogs', 'identities'];
-  return publicEndpoints.some((endpoint) => url.startsWith(endpoint));
+  const excludePublicEndpoints = ['identities/user-info'];
+
+  return (
+    publicEndpoints.some((endpoint) => url.startsWith(endpoint)) &&
+    !excludePublicEndpoints.includes(url)
+  );
 };
