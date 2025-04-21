@@ -9,7 +9,7 @@ import {
   TokenResponse,
   UserDetailResponse,
 } from '../../features/accounts/models/api.model';
-import { Token } from '../../features/accounts/models/token.model';
+import { Token, UserInfo } from '../../features/accounts/models/token.model';
 
 @Injectable()
 export class AccountService {
@@ -19,8 +19,6 @@ export class AccountService {
   constructor(private readonly http: HttpClient) {}
 
   login(requestPayload: SignInRequest): Observable<TokenResponse> {
-    console.log('Logging in...');
-
     return this.http
       .post<TokenResponse>(`${this.prefix}/login`, {
         ...requestPayload,
@@ -38,8 +36,6 @@ export class AccountService {
   }
 
   logout(refreshToken: string): Observable<Object> {
-    console.log('Logging out...');
-
     return this.http
       .post(`${this.prefix}/revoke-token`, {
         refreshToken,
@@ -49,8 +45,6 @@ export class AccountService {
   }
 
   register(requestPayload: SignUpRequest): Observable<UserDetailResponse> {
-    console.log('Registering...');
-
     return this.http.post<UserDetailResponse>(
       `${this.prefix}/register`,
       requestPayload
@@ -58,8 +52,6 @@ export class AccountService {
   }
 
   refreshToken(token: string): Observable<TokenResponse> {
-    console.log('Refreshing token...');
-
     return this.http
       .post<TokenResponse>(`${this.prefix}/refresh-token`, {
         refreshToken: token,
@@ -74,6 +66,10 @@ export class AccountService {
           });
         })
       );
+  }
+
+  queryUserInfo(): Observable<UserInfo> {
+    return this.http.get<UserInfo>(`${this.prefix}/user-info`);
   }
 
   // TODO: Put it to LocalStorageService instead

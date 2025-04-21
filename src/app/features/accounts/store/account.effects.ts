@@ -69,6 +69,18 @@ export const login = createEffect(
   }
 );
 
+export const loginSuccess = createEffect(
+  (actions$ = inject(Actions)) => {
+    return actions$.pipe(
+      ofType(AccountActions.loginSuccess),
+      map(() => AccountActions.queryUserInfo())
+    );
+  },
+  {
+    functional: true,
+  }
+);
+
 export const loginFailure = createEffect(
   (actions$ = inject(Actions)) => {
     return actions$.pipe(
@@ -86,6 +98,27 @@ export const loginFailure = createEffect(
             life: 3600,
           },
         })
+      )
+    );
+  },
+  {
+    functional: true,
+  }
+);
+
+export const queryUserInfo = createEffect(
+  (actions$ = inject(Actions), accountService = inject(AccountService)) => {
+    return actions$.pipe(
+      ofType(AccountActions.queryUserInfo),
+      exhaustMap(() =>
+        accountService.queryUserInfo().pipe(
+          map((response) =>
+            AccountActions.queryUserInfoSuccess({ queryResponse: response })
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(AccountActions.queryUserInfoFailure({ error }))
+          )
+        )
       )
     );
   },

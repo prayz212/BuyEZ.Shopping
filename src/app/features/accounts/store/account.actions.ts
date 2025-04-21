@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
-import { SignInRequest, SignUpRequest } from '../models/api.model';
-import { Token } from '../models/token.model';
+import {
+  SignInRequest,
+  SignUpRequest,
+} from '../models/api.model';
+import { Token, UserInfo } from '../models/token.model';
 
 /*  Authenticate actions  */
 const login = createAction(
@@ -14,6 +17,16 @@ const loginSuccess = createAction(
 );
 const loginFailure = createAction(
   '[Account] Login Failure',
+  props<{ error: HttpErrorResponse }>()
+);
+
+const queryUserInfo = createAction('[Account] Query User Info');
+const queryUserInfoSuccess = createAction(
+  '[Account] Query User Info Success',
+  props<{ queryResponse: UserInfo }>()
+);
+const queryUserInfoFailure = createAction(
+  '[Account] Query User Info Failure',
   props<{ error: HttpErrorResponse }>()
 );
 
@@ -57,6 +70,10 @@ export const AccountActions = {
   login,
   loginSuccess,
   loginFailure,
+
+  queryUserInfo,
+  queryUserInfoSuccess,
+  queryUserInfoFailure,
 
   logout,
   logoutSuccess,

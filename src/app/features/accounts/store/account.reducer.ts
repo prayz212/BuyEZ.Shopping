@@ -1,11 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import { Token } from '../models/token.model';
+import { Token, UserInfo } from '../models/token.model';
 import { AccountActions } from './account.actions';
 
 export const accountFeatureKey = 'account';
 
 export interface AccountState {
   token: Token | null;
+  userinfo: UserInfo | null;
   isAuthenticated: boolean;
   loading: boolean;
   error: any;
@@ -13,6 +14,7 @@ export interface AccountState {
 
 export const initialState: AccountState = {
   token: null,
+  userinfo: null,
   isAuthenticated: false,
   loading: false,
   error: null,
@@ -34,6 +36,22 @@ export const accountReducer = createReducer(
     loading: false,
   })),
   on(AccountActions.loginFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+  })),
+
+  on(AccountActions.queryUserInfo, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(AccountActions.queryUserInfoSuccess, (state, { queryResponse }) => ({
+    ...state,
+    userinfo: queryResponse,
+    loading: false,
+  })),
+  on(AccountActions.queryUserInfoFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
