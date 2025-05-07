@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://some-production-api.com',
   apiVersion: 'v1',
-  clientId: 'your-client-id',
+  clientId: '01f9f062-cedb-4a30-877c-c7295ddcc82d',
 };
