@@ -1,0 +1,22 @@
+version: '3.8'
+
+name: buyez-webapp
+
+services:
+  shopping_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopping-svc
+    ports:
+      - "17100:80"  # Exposing on port 80, adjust if needed
+    # For Linux hosts, uncomment the following lines:
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    networks:
+      - frontend-network
+    restart: unless-stopped
+
+networks:
+  frontend-network:
+    driver: bridge
